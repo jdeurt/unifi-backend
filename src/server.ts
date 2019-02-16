@@ -5,6 +5,9 @@ import connectMongo from "connect-mongo";
 import mongoose from "mongoose";
 import passport from "passport";
 import path from "path";
+import dotenv from "dotenv";
+
+dotenv.load();
 
 const app = express();
 const MongoStore = connectMongo(session);
@@ -15,13 +18,9 @@ mongoose.set("useNewUrlParser", true);
 mongoose.connect(process.env.MONGODB_URI as string);
 mongoose.connection.on("error", (err) => {
     console.error(err);
-    console.log("MongoDB connection error. Please make sure MongoDB is running.");
+    console.log("MongoDB connection error.");
     process.exit();
 });
-
-app.use(express.static(path.resolve(__dirname + "/../../website/dist")))
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(session({
     resave: true,
@@ -35,5 +34,8 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.static(path.resolve(__dirname + "/../../website/dist/website")));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 export default app;
