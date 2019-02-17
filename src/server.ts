@@ -6,7 +6,8 @@ import mongoose from "mongoose";
 import passport from "passport";
 import path from "path";
 import dotenv from "dotenv";
-import { isAuthenticatedPatient } from "./config/passport";
+import { isAuthenticatedPatient, isAuthAPI } from "./config/passport";
+import patientAPI from "./api/patient";
 
 dotenv.load();
 
@@ -37,6 +38,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get("/api/patient", isAuthAPI("patient"), patientAPI);
 
 app.use("/patient", isAuthenticatedPatient);
 
