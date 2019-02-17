@@ -39,6 +39,7 @@ passport.use("patient", new LocalStrategy({
         if (err) return done(err);
 
         if (!user) {
+            console.log("no");
             return done(null, false, {
                 message: "Incorrect username."
             });
@@ -47,9 +48,12 @@ passport.use("patient", new LocalStrategy({
         user.comparePassword(password, (err, isMatch) => {
             if (err) return done(err);
 
-            if (!isMatch) return done(null, false, {
-                message: "Incorrect password."
-            });
+            if (!isMatch) {
+                console.log("pass is wrong");
+                return done(null, false, {
+                    message: "Incorrect password."
+                });
+            }   
 
             done(null, user);
         });
@@ -113,6 +117,20 @@ passport.use("provider", new LocalStrategy({
  */
 export const isAuthenticatedPatient = (req: Request, res: Response, next: NextFunction) => {
     if (req.isAuthenticated() && req.user._type == "patient") {
+        return next();
+    }
+    res.redirect("/");
+};
+
+export const isAuthenticatedDoctor = (req: Request, res: Response, next: NextFunction) => {
+    if (req.isAuthenticated() && req.user._type == "doctor") {
+        return next();
+    }
+    res.redirect("/");
+};
+
+export const isAuthenticatedProvider = (req: Request, res: Response, next: NextFunction) => {
+    if (req.isAuthenticated() && req.user._type == "provider") {
         return next();
     }
     res.redirect("/");
