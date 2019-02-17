@@ -1,6 +1,6 @@
 # Unifi - HackDFW 2019
 
-# Inspiration
+## Inspiration
 
 We fixed the extremely prevalent issue in Hospitals of data storage/transfer. A combination of Children's Hospital's challenge statement and Capital One's financial hack led us to create an easy to use portal for patients and doctors, to streamline information/medical history retrieval and aid patients in their attaining of healthcare.
 
