@@ -11,7 +11,9 @@ export interface DoctorInterface extends Mongoose.Document {
         age: number
     },
 
-    access: Array<string>
+    access: Array<string>,
+
+    comparePassword: (candidatePassword: string, cb: (err: Error, isMatch: boolean) => void) => void;
 };
 
 export const doctorSchema = new Mongoose.Schema({

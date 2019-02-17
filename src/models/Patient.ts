@@ -16,7 +16,9 @@ export interface PatientInterface extends Mongoose.Document {
         appointments: Array<{ date: Date, description: string }>
 
         ssn: string
-    }
+    },
+
+    comparePassword: (candidatePassword: string, cb: (err: Error, isMatch: boolean) => void) => void;
 };
 
 export const patientSchema = new Mongoose.Schema({

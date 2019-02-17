@@ -7,7 +7,9 @@ export interface HProviderInterface extends Mongoose.Document {
 
     profile: {
         name: string
-    }
+    },
+
+    comparePassword: (candidatePassword: string, cb: (err: Error, isMatch: boolean) => void) => void;
 };
 
 export const healthcareProviderSchema = new Mongoose.Schema({
