@@ -27,6 +27,8 @@ export function setPatientData(req: Request, res: Response) {
     Patient.findById(id, (err, doc) => {
         let user = doc as PatientInterface;
 
+        user.profile.medication = [];
+
         //@ts-ignore
         user.profile.medication.push({name: "Summedicin", dose: "3/day"});
         //@ts-ignore
