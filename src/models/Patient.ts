@@ -13,7 +13,7 @@ export interface PatientInterface extends Mongoose.Document {
         age: number,
 
         medicalHistory: Map<string, { date: Date, medication: Array<string>, labs: Array<{ data: object }>, symptoms: Array<string> }>,
-        medication: Map<string, { name: string, dose: string, timeframe: { start: Date, end: Date } }>,
+        medication: Array<{ name: string, dose: string, timeframe: { start: Date, end: Date } }>,
         appointments: Array<{ date: Date, description: string }>
 
         ssn: string
@@ -37,8 +37,8 @@ export const patientSchema = new Mongoose.Schema({
             of: Object
         },
         medication: {
-            type: Map,
-            of: Object
+            type: Array,
+            of: { name: String, dose: String, timeframe: { start: Date, end: Date } }
         },
         appointments: {
             type: Array,

@@ -13,21 +13,21 @@ import {
 import { Request, Response, NextFunction } from "express";
 
 passport.serializeUser((user: PatientInterface | DoctorInterface | HProviderInterface, done) => {
-    done(null, user.id);
+    done(null, {id: user.id, group: user._type});
 });
 
-passport.deserializeUser((id, done) => {
-    Patient.findById(id, (err, user) => {
-        if (!err) done(err, user as object);
+passport.deserializeUser((userData: {id: string, group: string}, done) => {
+    if (userData.group == "patient") {
+        Patient.findById(userData.id, (err, user) => {
+            done(err, user as object);
+        });
+    }
 
-        Doctor.findById(id, (err, user) => {
-            if (!err) done(err, user as object);
-
-            HealthcareProvider.findById(id, (err, user) => {
-                done(err, user as object);
-            });
-        })
-    });
+    if (userData.group == "doctor") {
+        Doctor.findById(userData.id, (err, user) => {
+            done(err, user as object);
+        });
+    }
 });
 
 passport.use("patient", new LocalStrategy({
@@ -53,7 +53,7 @@ passport.use("patient", new LocalStrategy({
                 return done(null, false, {
                     message: "Incorrect password."
                 });
-            }   
+            }
 
             done(null, user);
         });
@@ -74,12 +74,18 @@ passport.use("doctor", new LocalStrategy({
             });
         }
 
+        console.log("Correct username.");
+
         user.comparePassword(password, (err, isMatch) => {
             if (err) return done(err);
 
-            if (!isMatch) return done(null, false, {
-                message: "Incorrect password."
-            });
+            if (!isMatch) {
+                return done(null, false, {
+                    message: "Incorrect password."
+                });
+            }
+
+            console.log(user);
 
             done(null, user);
         });

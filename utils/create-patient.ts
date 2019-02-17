@@ -1,4 +1,4 @@
-import { Patient } from "../src/models";
+import { Patient, Doctor } from "../src/models";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
@@ -15,23 +15,25 @@ mongoose.connection.on("error", (err) => {
 });
 
 const user = new Patient({
-    _type: "patient",
-    email: "test@email.com",
+    email: "patient@email.com",
     password: "password",
-    
+
     profile: {
-        name: "William Ohio",
-        address: "4001 Street Avenue, Dallas, TX 75205",
-        gender: "male",
+        name: "Juan de urtubey",
+        gender: "make",
         age: 18,
 
-        medicalHistory: new Map(),
-        medication: new Map(),
-        appointments: [{date: new Date(), description: "Example appointment today."}],
+        medication: [],
+        appointments: [],
 
         ssn: "111-11-1111"
     }
 });
+
+//@ts-ignore
+user.profile.medication.push();
+//@ts-ignore
+user.appointments.push({date: new Date(), description: "Event"});
 
 console.log(user);
 

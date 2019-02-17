@@ -8,6 +8,8 @@ import path from "path";
 import dotenv from "dotenv";
 import { isAuthenticatedPatient, isAuthAPI, isAuthenticatedDoctor, isAuthenticatedProvider } from "./config/passport";
 import patientAPI from "./api/patient";
+import { getPatient, setPatientData } from "./api/doctor";
+import { Request, Response } from "express";
 
 dotenv.load();
 
@@ -29,10 +31,6 @@ app.use(session({
     saveUninitialized: true,
     secret: process.env.SESSION_SECRET as string,
     cookie: { maxAge: 1209600000 }, // two weeks in milliseconds
-    store: new MongoStore({
-        url: process.env.MONGODB_URI as string,
-        autoReconnect: true,
-    })
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -46,6 +44,8 @@ app.post("/login", (req, res, next) => {
         return res.status(400).json({message: "ha loser"});
     }
 
+    console.log(type);
+
     passport.authenticate(type, {
         successRedirect: "/" + type,
         failureRedirect: "/"
@@ -54,11 +54,15 @@ app.post("/login", (req, res, next) => {
 
 app.get("/logout", (req, res) => {
     req.logout();
+    //@ts-ignore
+    req.session.destroy();
     res.redirect("/");
 });
 
 app.get("/api/patient", isAuthAPI("patient"), patientAPI);
 app.get("/api/doctor", isAuthAPI("doctor"), patientAPI);
+app.get("/api/doctor/:id", isAuthAPI("doctor"), getPatient);
+app.post("/api/doctor/:id/:item", isAuthAPI("doctor"), setPatientData);
 app.get("/api/provider", isAuthAPI("provider"), patientAPI);
 
 app.use("/patient", isAuthenticatedPatient);
