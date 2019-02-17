@@ -2,6 +2,7 @@ import Mongoose from "mongoose";
 import bcrypt from "bcrypt-nodejs";
 
 export interface DoctorInterface extends Mongoose.Document {
+    _type: "doctor";
     email: string;
     password: string;
 
@@ -17,6 +18,7 @@ export interface DoctorInterface extends Mongoose.Document {
 };
 
 export const doctorSchema = new Mongoose.Schema({
+    _type: { type: String, default: "doctor" },
     email: { type: String, unique: true },
     password: String,
 

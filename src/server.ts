@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import passport from "passport";
 import path from "path";
 import dotenv from "dotenv";
+import { isAuthenticatedPatient } from "./config/passport";
 
 dotenv.load();
 
@@ -34,8 +35,11 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.resolve(__dirname + "/../../website/dist/website")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use("/patient", isAuthenticatedPatient);
+
+app.use(express.static(path.resolve(__dirname + "/../../website/dist/website")));
 
 export default app;
