@@ -14,11 +14,11 @@ From the doctors end, the doctor is presented with a list of their patients alon
 ## How we built it
 The front end is built on Angular and BootStrap. On the backend, we are using NodeJS, ExpressJS, MongoDB for doctor/patient records, and Passport for user authentication.
 
-@jdeurt Built the frontend and backend.
+[jdeurt](https://github.com/jdeurt) Built the frontend and backend.
 
-@gaiscioch and @wdeng112 worked on an Alexa Skill to connect doctors to the patient data via voice.
+[gaiscioch](https://github.com/gaiscioch) and [wdeng112](https://github.com/wdeng112) worked on an Alexa Skill to connect doctors to the patient data via voice.
 
-@wdeng112 Built the health insurance assistant.
+[wdeng112](https://github.com/wdeng112) Built the health insurance assistant.
 
 ## Challenges we ran into
 Figuring out how to properly match health insurance plans and providers to patients based on their inputted data.
@@ -35,7 +35,7 @@ We are proud of making a coherent webapp that streamlines medical data for ease 
 We are happy with our product and hope you all feel the same way.
 
 ## What we learned
-@jdeurt learned he should get sleep when grinding on that code. This is @wdeng112's first experience with web development, and @gaiscioch's first experience working with Amazon Alexa Skills. We will definitely build on these skills in the future.
+[jdeurt](https://github.com/jdeurt) learned he should get sleep when grinding on that code. This is [wdeng112](https://github.com/wdeng112)'s first experience with web development, and [gaiscioch](https://github.com/gaiscioch)'s first experience working with Amazon Alexa Skills. We will definitely build on these skills in the future.
 
 We also learned how to work more collaboratively, which was imperative to our success in a project of a scale such as this.
 
